@@ -24,6 +24,7 @@
                 "esSpecCompliant": true
             }
         ],
-        "object-literal-sort-keys": false
+        "object-literal-sort-keys": false,
+        "no-trailing-whitespace": false
     }
 }
