@@ -71,3 +71,6 @@ typings/
 
 # Serverless directories
 .serverless
+
+# Bundle file
+index-browserify.js
