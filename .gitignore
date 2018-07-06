@@ -74,3 +74,6 @@ typings/
 
 # Bundle file
 index-browserify.js
+
+# Build directory
+build
