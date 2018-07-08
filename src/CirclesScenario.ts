@@ -37,5 +37,4 @@ function generateCircles(engine: Matter.Engine, renderer: Matter.Render) {
         Matter.World.addBody(engine.world, particle.body);
     }
 }
-
 export { generateCircles as scenario };
