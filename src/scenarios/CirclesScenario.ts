@@ -1,6 +1,6 @@
 import * as Matter from "matter-js";
 import * as Random from "random-number";
-import { Particle } from "./Particle";
+import { Particle } from "../Particle";
 
 function generateCircles(engine: Matter.Engine, renderer: Matter.Render) {
 

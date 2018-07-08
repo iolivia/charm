@@ -1,4 +1,4 @@
-import { Emitter } from "./Emitter"
+import { Emitter } from "../Emitter"
 
 function scenario(engine: Matter.Engine, renderer: Matter.Render) {
 
