@@ -1,7 +1,7 @@
 {
   "name": "charm",
   "version": "1.0.0",
-  "description": "Charm - a particle engine library.",
+  "description": "Charm - a particle system library.",
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
@@ -19,6 +19,6 @@
   "devDependencies": {
     "@types/matter-js": "^0.10.1",
     "tslint": "^5.10.0",
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2"  
   }
 }
