@@ -1,7 +1,7 @@
 {
   "name": "charm",
   "version": "1.0.0",
-  "description": "Charm - a particle physics library.",
+  "description": "Charm - a particle engine library.",
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",

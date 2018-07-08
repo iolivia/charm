@@ -7,6 +7,8 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Render = Matter.Render;
+const MouseConstraint = Matter.MouseConstraint;
+const Mouse = Matter.Mouse;
 
 const colors = [
     "#A52A2A",
@@ -46,10 +48,10 @@ function createRenderer(localEngine: Matter.Engine): Matter.Render {
     return render;
 }
 
-function getRandomColor() : String {
+function getRandomColor(): String {
     const randomIndex = Random({
         min: 0,
-        max: colors.length-1,
+        max: colors.length - 1,
         integer: true
     });
     const color = colors[randomIndex];
@@ -59,12 +61,18 @@ function getRandomColor() : String {
     return color;
 }
 
-function generateCircles(localEngine: Matter.Engine) {
+function addMouseConstraint(localEngine: Matter.Engine, renderer: Matter.Render) {
+    let mouseConstraint = Matter.MouseConstraint.create(localEngine, {
+        mouse: Matter.Mouse.create(document.body)
+    });
+    World.add(localEngine.world, mouseConstraint);
+}
+function generateCircles(localEngine: Matter.Engine, renderer: Matter.Render) {
 
     // create the ground
     const ground = Bodies.rectangle(400, 800, 1500, 200, { isStatic: true });
     World.addBody(localEngine.world, ground);
-      
+
     // create particles
     const particles = [];
     const particleCount = 100;
@@ -92,11 +100,11 @@ function generateCircles(localEngine: Matter.Engine) {
                 fillStyle: getRandomColor().toString(),
                 strokeStyle: "black",
                 lineWidth: 1
-              }
+            }
         };
         const body = Bodies.circle(x, y, radius, options);
         const density = 10;
-        
+
         const velocity = Random({
             min: 10,
             max: 30,
@@ -110,15 +118,17 @@ function generateCircles(localEngine: Matter.Engine) {
 
         World.addBody(localEngine.world, body);
     }
+
+    addMouseConstraint(localEngine, renderer);
 }
 
-function main(scenario: (localEngine: Matter.Engine) => void) {
+function main(scenario: (localEngine: Matter.Engine, renderer: Matter.Render) => void) {
     // Setup
     const engine = createEngine(false);
     const renderer = createRenderer(engine);
 
     // Run scenario
-    scenario(engine);
+    scenario(engine, renderer);
 
     // Run
     Engine.run(engine);
