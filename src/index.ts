@@ -1,6 +1,7 @@
 import * as Matter from "matter-js";
 import * as Random from "random-number";
 import { Particle } from "./Particle";
+import { GameLoop } from "./GameLoop";
 
 // module aliases
 const Engine = Matter.Engine;
@@ -21,33 +22,6 @@ const colors = [
     "#A9A9A9",
 ];
 
-function createEngine(disableGravity: boolean = true): Matter.Engine {
-    // create an engine
-    const localEngine = Engine.create();
-
-    // disable gravity
-    if (disableGravity) {
-        localEngine.world.gravity.y = 0;
-    }
-
-    return localEngine;
-}
-
-function createRenderer(localEngine: Matter.Engine): Matter.Render {
-    // create a renderer
-    const render = Render.create({
-        element: document.body,
-        engine: localEngine,
-        options: {
-            width: document.body.clientWidth,
-            height: document.body.clientHeight,
-            wireframes: false
-        }
-    });
-
-    return render;
-}
-
 function getRandomColor(): String {
     const randomIndex = Random({
         min: 0,
@@ -61,12 +35,6 @@ function getRandomColor(): String {
     return color;
 }
 
-function addMouseConstraint(localEngine: Matter.Engine, renderer: Matter.Render) {
-    let mouseConstraint = Matter.MouseConstraint.create(localEngine, {
-        mouse: Matter.Mouse.create(document.body)
-    });
-    World.add(localEngine.world, mouseConstraint);
-}
 function generateCircles(localEngine: Matter.Engine, renderer: Matter.Render) {
 
     // create the ground
@@ -118,21 +86,11 @@ function generateCircles(localEngine: Matter.Engine, renderer: Matter.Render) {
 
         World.addBody(localEngine.world, body);
     }
-
-    addMouseConstraint(localEngine, renderer);
 }
 
 function main(scenario: (localEngine: Matter.Engine, renderer: Matter.Render) => void) {
-    // Setup
-    const engine = createEngine(false);
-    const renderer = createRenderer(engine);
-
-    // Run scenario
-    scenario(engine, renderer);
-
-    // Run
-    Engine.run(engine);
-    Render.run(renderer);
+    let gameLoop = new GameLoop();
+    gameLoop.run(scenario);
 }
 
 main(generateCircles);
