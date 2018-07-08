@@ -34,13 +34,13 @@ function generateCircles(engine: Matter.Engine, renderer: Matter.Render) {
 
     // create particles
     const particles = [];
-    const particleCount = 100;
+    const particleCount = 50;
 
     for (let i = 0; i < particleCount; i++) {
         // generate a body
         const radius = Random({
-            min: 5,
-            max: 15,
+            min: 8,
+            max: 35,
             integer: true
         });
         const x = Random({
@@ -62,16 +62,16 @@ function generateCircles(engine: Matter.Engine, renderer: Matter.Render) {
             }
         };
         const body = Matter.Bodies.circle(x, y, radius, options);
-        const density = 10;
-
+        body.restitution = 0.7;
+        body.density = 0.5;
+        
         const velocity = Random({
-            min: 10,
-            max: 30,
+            min: 1,
+            max: 5,
             integer: false
         });
         Matter.Body.setAngularVelocity(body, velocity);
-        Matter.Body.setDensity(body, density);
-
+        
         const particle = new Particle(body);
         particles.push(particle);
 
